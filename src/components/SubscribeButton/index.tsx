@@ -1,6 +1,10 @@
 import styles from './styles.module.scss';
 
-export function SubscribeButtton() {
+interface SubscribeButtonProps {
+  priceId: string;
+}
+
+export function SubscribeButtton({ priceId }: SubscribeButtonProps) {
   return (
     <button
       type="button"
