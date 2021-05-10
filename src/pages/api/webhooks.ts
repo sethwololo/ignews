@@ -6,10 +6,11 @@ import { saveSubscription } from "./_lib/manageSubscription";
 
 async function buffer(readable: Readable) {
   const chunks = [];
+
   for await (const chunk of readable) {
     chunks.push(
       typeof chunk === 'string' ? Buffer.from(chunk) : chunk
-    )
+    );
   }
 
   return Buffer.concat(chunks);
@@ -28,7 +29,7 @@ const relevantEvents = new Set([
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const buf = await buffer(req);
-    const secret = req.headers['req-signature']
+    const secret = req.headers['stripe-signature'];
 
     let event: Stripe.Event;
 
