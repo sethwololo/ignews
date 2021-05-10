@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/client';
 import { stripe } from "../../services/stripe";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'post') {
+  if (req.method === 'POST') {
     const session = await getSession({ req });
 
     const stripeCustomer = await stripe.customers.create({
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({ sessionId: stripeCheckoutSession.id })
   } else {
     res.setHeader('Allow', 'POST');
-    res.send(405)
+    res.send(405);
     res.end('Method not allowed');
   }
 }
